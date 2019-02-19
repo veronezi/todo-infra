@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      stack: todo
+      app: auth
+  template:
+    metadata:
+      labels:
+        stack: todo
+        app: auth
+    spec:
+      containers:
+        - name: auth
+          image: veronezi/auth-jwt:0.0.1-b6
+          ports:
+            - containerPort: 3000

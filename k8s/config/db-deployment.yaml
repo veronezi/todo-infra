@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      stack: todo
+      app: db
+  template:
+    metadata:
+      labels:
+        stack: todo
+        app: db
+    spec:
+      containers:
+        - name: db
+          image: veronezi/sample-postgres:0.0.1-b21
+          ports:
+            - containerPort: 9000
+          env:
+            - name: WAIT_FOR
+              value: "minio:9000"
+            - name: MINIO_URL
+              value: "minio:9000"
+            - name: MINIO_ACCESS_KEY
+              value: TESTINGACCESS123
+            - name: MINIO_SECRET_KEY
+              value: tesTingPass123
+            - name: POSTGRES_DB
+              value: todo
+            - name: POSTGRES_USER
+              value: todo_user
+            - name: POSTGRES_PASSWORD
+              value: todo_pass

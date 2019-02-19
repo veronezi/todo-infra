@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minio
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      stack: todo
+      app: minio
+  template:
+    metadata:
+      name: minio
+      labels:
+        stack: todo
+        app: minio
+    spec:
+      containers:
+        - name: minio
+          image: veronezi/sample-minio:0.0.1-b21
+          ports:
+            - containerPort: 9000

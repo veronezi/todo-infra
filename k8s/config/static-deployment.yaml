@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: static
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      stack: todo
+      app: static
+  template:
+    metadata:
+      labels:
+        stack: todo
+        app: static
+    spec:
+      containers:
+        - name: static
+          image: veronezi/todo-static:0.0.1-b128
+          ports:
+            - containerPort: 80

@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: facade
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      stack: todo
+      app: facade
+  template:
+    metadata:
+      labels:
+        stack: todo
+        app: facade
+    spec:
+      containers:
+        - name: facade
+          image: veronezi/todo-facade:0.0.1-b128
+          ports:
+            - containerPort: 80

@@ -1,0 +1,34 @@
+version: '3.1'
+
+services:
+  static:
+    image: veronezi/todo-static:0.0.1-b128
+
+  auth:
+    image: veronezi/auth-jwt:0.0.1-b6
+
+  ui:
+    image: veronezi/todo-facade:0.0.1-b128
+    ports:
+      - "80:80"
+
+  api:
+    image: veronezi/todo-api:0.0.1-b128
+    environment:
+      - WAIT_FOR=db:5432,auth:3000
+
+  minio:
+    image: veronezi/sample-minio:0.0.1-b21
+
+  db:
+    image: veronezi/sample-postgres:0.0.1-b21
+    environment:
+      - WAIT_FOR=minio:9000
+      - MINIO_URL=minio:9000
+      - MINIO_ACCESS_KEY=TESTINGACCESS123
+      - MINIO_SECRET_KEY=tesTingPass123
+      - RESTORE_BASE_BACKUP=${RESTORE_BASE_BACKUP:-}
+      - DEBUG=false
+      - POSTGRES_DB=todo
+      - POSTGRES_USER=todo_user
+      - POSTGRES_PASSWORD=todo_pass

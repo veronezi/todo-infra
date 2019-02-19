@@ -3,4 +3,4 @@ set -e
 
 NS=${NS:-todo}
 
-kubectl -n $NS delete -f config
+kubectl apply -f config -n $NS

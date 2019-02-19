@@ -1,3 +1,13 @@
 = TODO INFRA
 
 Companion project for https://github.com/veronezi/todo
+
+== Microk8s
+
+```
+snap install microk8s --classic
+microk8s.kubectl config view --raw > $HOME/.kube/config
+microk8s.enable dns dashboard storage ingress
+kubectl create namespace todo
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/mandatory.yaml
+```

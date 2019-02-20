@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
 set -e
 
-watch kubectl get all -n todo
+NS=${NS:-todo}
+
+watch kubectl -n $NS get all

@@ -15,8 +15,24 @@ spec:
         stack: todo
         app: minio
     spec:
+      volumes:
+        - name: minio-storage
+          persistentVolumeClaim:
+            claimName: minio
       containers:
         - name: minio
           image: veronezi/sample-minio:0.0.1-b21
           ports:
             - containerPort: 9000
+          env:
+            - name: MINIO_ACCESS_KEY
+              value: TESTINGACCESS123
+            - name: MINIO_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: miniopass
+                  key: MINIO_SECRET
+          volumeMounts:
+            - name: minio-storage
+              mountPath: /opt/volume/
+              subPath: minioVolume

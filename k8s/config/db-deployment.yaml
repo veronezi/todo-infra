@@ -27,7 +27,10 @@ spec:
             - name: MINIO_ACCESS_KEY
               value: TESTINGACCESS123
             - name: MINIO_SECRET_KEY
-              value: tesTingPass123
+              valueFrom:
+                secretKeyRef:
+                  name: miniopass
+                  key: MINIO_SECRET
             - name: POSTGRES_DB
               value: todo
             - name: POSTGRES_USER

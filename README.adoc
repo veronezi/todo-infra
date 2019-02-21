@@ -2,12 +2,25 @@
 
 Companion project for https://github.com/veronezi/todo
 
-== Microk8s
+== File structure
 
-```
-snap install microk8s --classic
-microk8s.kubectl config view --raw > $HOME/.kube/config
-microk8s.enable dns dashboard storage ingress
-kubectl create namespace todo
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/mandatory.yaml
-```
+=== `/k8s`
+
+The `/k8s` directory contains all the files necessary to install the stack on a kubernetes cluster. You will find a few
+utility `.sh` scripts you can use to perform actions against your k8s application.
+
+* `stack.create.secrets.sh`: it creates all the secrets used by the stack deployment;
+* `stack.apply.sh`: it applies (or deploys) all the k8s configuration files under the `/k8s/config` directory;
+* `stack.status.sh`: it displays the status of your deployment;
+* `stack.delete.sh`: it deletes all the objects created by the `stack.apply.sh` command;
+* `stack.log.sh`: it displays the logs of a given deployment. For example, inorder to see the log of the `db` deployment,
+you should execute `./stack.log.sh db`;
+* `stack.open.browser.sh`: it opens a incognito chrome browser at the home page of your deployed `todo` application;
+
+=== `/pwd`
+
+The `/pwd` directory contains the file used by https://labs.play-with-docker.com/ to create a demo Docker Swarm stack.
+You can test it by clicking the button bellow.
+
+image:https://github.com/play-with-docker/stacks/raw/master/assets/images/button.png[link="https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/veronezi/todo-infra/master/pwd/pwd-stack.yml"]
+
